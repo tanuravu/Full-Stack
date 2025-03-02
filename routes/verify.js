@@ -5,12 +5,12 @@ const isLoggedIn = require("../middleware/verifylogin");
 const { use } = require("react");
 const prisma = new PrismaClient();
 
-router.get("/:token/:userId",async (req,res)=>{
-    let {token,userId} = req.params;
+router.get("/:token/:userid",async (req,res)=>{
+    let {token,userid} = req.params;
     let istoken = await prisma.token.findFirst({
         where:{
             token : parseInt(token),
-            userId:parseInt(userId)
+            userid:parseInt(userid)
         }
     })
 
@@ -19,7 +19,7 @@ router.get("/:token/:userId",async (req,res)=>{
     else{
         let updateuseremail = await prisma.user.update({
             where :{
-                id :parseInt(userId)
+                id :parseInt(userid)
             },
             data:{
                 isverify:true
